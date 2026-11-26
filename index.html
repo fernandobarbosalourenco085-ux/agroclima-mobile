@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2B5B33">
+<title>AgroClima Itapajé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="locked">
+<div class="app">
+
+<!-- LOGIN -->
+<section class="page" id="p-login">
+<div class="head"><small>AgroClima Itapajé</small><h1>Entrar</h1><p id="loginStatus" aria-live="polite">Entre com seu e-mail e senha para acessar.</p></div>
+<div class="body">
+<form id="formLogin" class="card" novalidate>
+<label for="lemail" style="margin-top:0">E-mail</label>
+<input id="lemail" type="email" inputmode="email" autocomplete="email"><p class="err" data-e="lemail"></p>
+<label for="lsenha">Senha</label>
+<input id="lsenha" type="password" autocomplete="current-password"><p class="err" data-e="lsenha"></p>
+<button class="btn" type="submit" style="margin-top:.8rem">Entrar</button>
+</form>
+<p style="margin:1.2rem 0 .5rem">Ainda não tem conta?</p>
+<a class="btn alt" href="#cadastro">Criar cadastro</a>
+</div>
+</section>
+
+<!-- CADASTRO -->
+<section class="page" id="p-cadastro">
+<div class="head"><small>AgroClima Itapajé</small><h1>Criar cadastro</h1><p>Cadastre-se para receber avisos e recomendações da sua região.</p></div>
+<div class="body">
+<form id="form" class="card" novalidate>
+<label for="nome" style="margin-top:0">Nome completo</label>
+<input id="nome" autocomplete="name"><p class="err" data-e="nome"></p>
+<label for="email">E-mail</label>
+<input id="email" type="email" inputmode="email" autocomplete="email"><p class="err" data-e="email"></p>
+<label for="mun">Município / comunidade</label>
+<input id="mun" autocomplete="address-level2" placeholder="Ex.: Médio Curu, Itapajé/CE"><p class="err" data-e="mun"></p>
+<label for="cult">Cultura principal</label>
+<select id="cult"><option value="">Selecione</option></select><p class="err" data-e="cult"></p>
+<label for="area">Área plantada (hectares)</label>
+<input id="area" type="number" min="0.1" step="0.1" inputmode="decimal"><p class="err" data-e="area"></p>
+<label for="senha">Senha (mínimo 6 caracteres)</label>
+<input id="senha" type="password" autocomplete="new-password"><p class="err" data-e="senha"></p>
+<button class="btn" type="submit" style="margin-top:.8rem">Criar cadastro</button>
+</form>
+<p style="margin-top:1.2rem">Já tem cadastro? <a href="#login">Entrar</a></p>
+</div>
+</section>
+
+<!-- INÍCIO -->
+<section class="page" id="p-inicio">
+<div class="head"><small>AgroClima Itapajé</small><h1 id="saudacao">Bom dia</h1><p id="local">Médio Curu, Itapajé/CE | Welcome com dados de exemplo</p></div>
+<div class="body">
+<div class="card warn">
+<span class="tag">Atenção</span>
+<h2>Aguarde para plantar o feijão</h2>
+<p>Risco de veranico nos próximos 10 dias na sua região. Espere a chuva se firmar antes de plantar.</p>
+<div class="row"><button class="btn" id="ouvir" type="button">Ouvir o aviso</button><a class="btn alt" href="#avisos">Ver detalhes</a></div>
+<div style="display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.7rem" id="fb">
+<span class="note" style="margin:0">Esse aviso ajudou?</span>
+<span class="row" style="flex:0 0 auto"><button class="chip" data-r="sim" type="button">Sim</button><button class="chip" data-r="nao" type="button">Não</button></span>
+</div>
+<p class="note" id="fbMsg" style="margin:.4rem 0 0" aria-live="polite"></p>
+</div>
+
+<div class="card">
+<h3>Chuva na sua região</h3>
+<div class="stats"><div class="stat"><b>0 mm</b><span>Hoje</span></div><div class="stat"><b>18 mm</b><span>Últimos 7 dias</span></div><div class="stat"><b>142 mm</b><span>Quadra chuvosa</span></div></div>
+<p class="note" style="margin:0">Chuva por dia (últimos 7 dias)</p>
+<svg class="chart" id="chartHome" viewBox="0 0 360 130" role="img" aria-label="Chuva por dia nos últimos 7 dias"></svg>
+<p class="note" style="margin:.2rem 0 .3rem">Próximos 5 dias</p>
+<div class="days" id="prox1"></div>
+</div>
+
+<div class="card"><h3>Hora de plantar</h3><div id="hora"></div></div>
+
+<div class="card"><h3>Quadra chuvosa (fev a mai)</h3>
+<div class="quad"><span>Fev</span><span class="on">Mar<small>Hoje</small></span><span>Abr</span><span>Mai</span></div></div>
+
+<div class="card"><h3>Gado leiteiro</h3>
+<div class="two"><div class="box a"><small>Pastagem</small><b>Atenção</b></div><div class="box g"><small>Água</small><b>Tudo certo</b></div></div></div>
+
+<div class="card"><h3>Avisos anteriores</h3>
+<div class="li"><div><span class="s">12 mar</span><b>Boa chuva: pode plantar o milho</b></div><span class="pill go">Ajudou</span></div>
+<div class="li"><div><span class="s">05 mar</span><b>Risco de veranico: aguarde</b></div><span class="pill go">Ajudou</span></div>
+<div class="li"><div><span class="s">26 fev</span><b>Início da quadra chuvosa</b></div><span class="pill no">Sem resposta</span></div></div>
+
+<p class="note">Fonte dos dados: FUNCEME e INMET. Este aviso é uma orientação, não uma garantia.</p>
+<div class="row"><button class="btn alt" type="button" data-msg="Contato de exemplo: procure a Ematerce do seu município.">Falar com a Ematerce</button><button class="btn alt" type="button" data-msg="Você deixou de receber avisos (exemplo).">Parar de receber</button></div>
+<p class="note" id="acaoMsg" style="margin-top:.6rem" aria-live="polite"></p>
+</div>
+</section>
+
+<!-- CHUVA -->
+<section class="page" id="p-chuvas">
+<div class="head"><small>AgroClima Itapajé</small><h1>Monitoramento de chuva</h1><p>Acompanhe a chuva na sua propriedade</p></div>
+<div class="body">
+<div class="card" style="display:flex;gap:.6rem;align-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b id="loc2">Médio Curu • Itapajé/CE</b><br><span class="note">Dados demonstrativos • Atualizado às 08h</span></div></div>
+<div class="card green"><span class="note" style="text-transform:uppercase;font-weight:700">Chuva acumulada hoje</span><p class="big" style="margin-top:.2rem">0 mm</p><p class="note" style="margin:0">Sem chuva registrada hoje.</p></div>
+<div class="sec" style="margin-top:1rem">Acumulados</div>
+<div class="stats white"><div class="stat"><b>18 mm</b><span>Últimos 7 dias</span></div><div class="stat"><b>42 mm</b><span>Este mês</span></div><div class="stat"><b>142 mm</b><span>Quadra chuvosa</span></div></div>
+<div class="card"><h3>Chuva nos últimos 7 dias</h3><p class="note" style="margin:0">Precipitação em milímetros (mm)</p>
+<svg class="chart" id="chartRain" viewBox="0 0 360 130" role="img" aria-label="Chuva nos últimos 7 dias"></svg></div>
+<div class="sec" style="margin-top:1rem">Previsão para os próximos dias</div>
+<div class="days" id="prox2"></div>
+<p class="note" style="margin-top:.8rem">Fonte: FUNCEME e INMET • Valores ilustrativos para demonstração.</p>
+</div>
+</section>
+
+<!-- PLANTIO -->
+<section class="page" id="p-plantio">
+<div class="head"><small>AgroClima Itapajé</small><h1>Orientação de plantio</h1><p>Escolha a cultura e consulte a melhor janela</p></div>
+<div class="body">
+<div class="card green"><span class="note" style="text-transform:uppercase;font-weight:700">Recomendação da semana</span><h2 style="font-size:1.6rem;margin:.2rem 0 .5rem">Milho</h2><span class="pill" style="background:var(--deep);color:#fff">Pode plantar</span><p class="note" style="margin:.6rem 0 0">Janela favorável nesta semana, conforme os dados climáticos de exemplo.</p></div>
+<div class="sec">Situação por cultura</div>
+<div id="culturas"></div>
+<div class="card" style="margin-top:.8rem">
+<label for="selCult" style="margin-top:0">Ver janela de plantio de</label>
+<select id="selCult"></select>
+<div class="mesc" id="meses" aria-label="Meses indicados para plantio"></div>
+<p class="note">Meses em verde: janela de plantio indicada.</p>
+<p style="margin:0"><b>Ciclo:</b> <span id="ciclo"></span></p>
+<p style="margin:0"><b>Chuva necessária:</b> <span id="agua"></span></p>
+<p style="margin:.4rem 0 0"><b>Dica:</b> <span id="dica"></span></p>
+</div>
+<div class="card"><h3>Antes de plantar</h3><ul class="check"><li>Confira a umidade do solo</li><li>Acompanhe a previsão de chuva</li><li>Prepare sementes e ferramentas</li></ul></div>
+<div class="card warn"><b>Atenção ao clima</b><p class="note" style="margin:.2rem 0 0;color:inherit">As recomendações são orientativas. Verifique as condições da sua área antes de plantar.</p></div>
+</div>
+</section>
+
+<!-- AVISOS -->
+<section class="page" id="p-avisos">
+<div class="head"><small>AgroClima Itapajé</small><h1>Avisos e alertas</h1><p>Informações importantes para sua propriedade</p></div>
+<div class="body">
+<div class="sum"><div class="a"><b id="nAt">1</b><span class="note">Atenção</span></div><div><b id="nIn">2</b><span class="note">Informativos</span></div></div>
+<div class="sec">Mais recentes</div>
+<div class="chips" role="group" aria-label="Filtrar por gravidade">
+<button class="chip" data-f="todas" aria-pressed="true">Todas</button><button class="chip" data-f="alta" aria-pressed="false">Alta</button><button class="chip" data-f="media" aria-pressed="false">Média</button><button class="chip" data-f="baixa" aria-pressed="false">Baixa</button></div>
+<div id="lista"></div>
+<div class="cta"><h3>Receba avisos no celular</h3><p style="margin:0;font-size:.9rem">Mantenha as notificações ativadas para acompanhar mudanças no clima.</p><button class="btn" id="notif" type="button">Ativar avisos</button></div>
+<p class="note">Os avisos são orientações baseadas em dados climáticos e não garantem resultados.</p>
+</div>
+</section>
+
+<footer>AgroClima · trabalho escolar · dados de exemplo</footer>
+</div>
+
+<nav class="tabbar" aria-label="Principal"><div class="in">
+<a href="#inicio" data-p="inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10H3z"/><path d="M9 21v-6h6v6"/></svg>Início</a>
+<a href="#chuvas" data-p="chuvas"><svg viewBox="0 0 24 24"><path d="M7 15a4 4 0 1 1 1-7.9A5 5 0 0 1 18 9a3.5 3.5 0 0 1 0 7H7z"/><path d="M9 19l-1 2M13 19l-1 2M17 19l-1 2"/></svg>Chuva</a>
+<a href="#plantio" data-p="plantio"><svg viewBox="0 0 24 24"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 15c0-3-2-5-6-5 0 3 2 5 6 5z"/></svg>Plantio</a>
+<a href="#avisos" data-p="avisos"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg>Avisos</a>
+<a href="#login" id="sair"><svg viewBox="0 0 24 24"><path d="M9 21H5V3h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>Sair</a>
+</div></nav>
+<script src="script.js"></script>
+</body>
+</html>
